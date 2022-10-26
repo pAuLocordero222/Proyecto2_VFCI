@@ -1,4 +1,4 @@
-class driver extends uvm_driver;
+class driver extends uvm_driver #(Item);
     `uvm_component_utils(driver)
 
     function new (string name = "driver", uvm_component parent = null);
@@ -14,6 +14,16 @@ class driver extends uvm_driver;
         end
     endfunction
 
-    \\Code
+  virtual task run_phase(uvm_phase phase);
+    super.run_phase(phase);
+    forever begin
+      Item m_item;
+      `uvm_info("DRV", $sformatf("Wait for item from sequencer"), UVM_HIGH);
+      seq_item_port.get_next_item(m_item);
+      drive_item(m_item);
+      seq_item_port.item_done();
+    end    
+
+    //Code
 
 endclass
