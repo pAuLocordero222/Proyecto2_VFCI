@@ -13,9 +13,9 @@ class monitor extends uvm_monitor;
 
 		mon_analysis_port = new("mon_analysis_port", this);
 
-		if (!uvm_config_db #(virtual dut_if) :: get (this, "", "dut_if", vif)) begin
-			`uvm_error (get_type_name (),  "DUT interface not found")
-		end
+		if (!uvm_config_db #(virtual dut_if) :: get (this, "", "dut_if", vif)) 
+			`uvm_fatal (get_type_name (),  "DUT interface not found")
+
 	endfunction
 
     virtual task run_phase (uvm_phase phase);
