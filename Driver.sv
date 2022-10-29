@@ -23,7 +23,13 @@ class driver extends uvm_driver #(Item);
       drive_item(m_item);
       seq_item_port.item_done();
     end    
+  endtask
 
-    //Code
+  virtual task drive_item(Item m_item);
+    @(vif.cb);
+      vif.cb.fp_X <= m_item.fp_X;
+      vif.cb.fp_Y <= m_item.fp_Y;
+      vif.cb.r_mode <= m_item.r_mode;
+  endtask
 
 endclass

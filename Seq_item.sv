@@ -16,16 +16,18 @@ class Item extends uvm_sequence_item;
     endfunction
 
     //constraints
-      constraint c_rand_data  {
+    constraint c_rand_data  {
 
     // Exponente
     fp_X[30:23] <= 8'hFE;
     fp_Y[30:23] <= 8'hFE;
 
     //Fraccion
-    fp_X[22:0] <= 23'h8F;
-    fp_Y[22:0] <= 23'h8F; 
+    //fp_X[22:0] <= 23'h8F;
+    //fp_Y[22:0] <= 23'h8F; 
 
   }
+
+  constraint c_r_mode {r_mode<=3'b100;}
 
 endclass
