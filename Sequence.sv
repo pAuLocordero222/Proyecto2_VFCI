@@ -25,3 +25,5 @@ class rand_sequence extends uvm_sequence;
         `uvm_info("SEQ",$sformatf("Done generation of %0d items", n),UVM_LOW);
 
     endtask
+
+endclass
