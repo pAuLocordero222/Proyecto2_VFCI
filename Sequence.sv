@@ -12,15 +12,15 @@ class rand_sequence extends uvm_sequence;
     virtual task body();
         `uvm_info("Sequence","Start of random sequence", UVM_HIGH);
         for(int i = 0; i < num; i++) begin
-            Item m_item = Item::type_id::create("m_item");
+            Item item = Item::type_id::create("m_item");
 
             //Constraint modes
-            m_item.c_rand_data.constraint_mode(1);
-            m_item.c_r_mode.constraint_mode(1);
-            start_item(m_item);
-            m_item.randomize();
-            `uvm_info("SEQ",$sformatf("New item: %s", Item.convert2str()), UVM_HIGH);
-            finish_item(m_item);
+            item.c_rand_data.constraint_mode(1);
+            item.c_r_mode.constraint_mode(1);
+            start_item(item);
+            item.randomize();
+            `uvm_info("SEQ",$sformatf("New item: %s", item.convert2str()), UVM_HIGH);
+            finish_item(item);
         end
         `uvm_info("SEQ",$sformatf("Done generation of %0d items", n),UVM_LOW);
 
