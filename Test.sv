@@ -36,17 +36,20 @@ class test1 extends base_test;
         super.new(name, parent);
     endfunction
 
-    //Secuencia escenario 1, FALTA HACER ESTO
+    seq_caso1 seq;
 
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
+
+        seq = seq_caso1::type_id::create("seq");
+        seq.randomize();
 
     endfunction
 
     virtual task run_phase(uvm_phase phase);
         `uvm_info("TEST_01", "Starting test execution", UVM_HIGH)
         phase.raise_objection(this);
-        seq.start(e0,a0,s0);//Fakta la secuencia
+        seq.start(e0,a0,s0);
         #200;
         phase.drop_objection(this);
     endtask

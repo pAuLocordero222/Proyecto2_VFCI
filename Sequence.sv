@@ -27,3 +27,19 @@ class rand_sequence extends uvm_sequence;
     endtask
 
 endclass
+
+class seq_caso1 extends uvm_sequence;
+
+    `uvm_object_utils(seq_caso1);
+
+    function new(string name="seq_esc1");
+        super.new(name);
+    endfunction
+
+    rand_sequence rndm_seq;
+
+    task body();
+        `uvm_do(rndm_seq);
+    endtask 
+
+endclass
