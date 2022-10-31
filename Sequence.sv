@@ -9,7 +9,7 @@ class rand_sequence extends uvm_sequence;
 
     constraint c_num{soft num inside {[4:8]};}
 
-    virtual task body ();
+    virtual task body();
         `uvm_info("Start of random sequence.", UVM_HIGH);
         for(int i = 0; i < num; i++) begin
             Item m_item = Item::type_id::create("m_item");
