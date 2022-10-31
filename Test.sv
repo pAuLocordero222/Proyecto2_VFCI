@@ -30,7 +30,7 @@ class test extends uvm_test;
 
 endclass
 
-class test1 extends base_test;
+class test1 extends test;
     `uvm_component_utils(test1);
     function new(string name="test1", uvm_component parent=null);
         super.new(name, parent);
