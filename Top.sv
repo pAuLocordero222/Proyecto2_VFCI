@@ -11,7 +11,7 @@ import uvm_pkg::*;
 `include "Environment.sv"
 `include "Test.sv"
 
-module tb
+module tb;
 
 	reg clk;
 
