@@ -13,7 +13,7 @@ class monitor extends uvm_monitor;
 
 		mon_analysis_port = new("mon_analysis_port", this);
 
-		if (!uvm_config_db #(virtual dut_if) :: get (this, "", "dut_if", vif)) 
+		if (!uvm_config_db #(virtual dut_if) :: get (this, "", "dut_vif", vif)) 
 			`uvm_fatal (get_type_name (),  "DUT interface not found")
 
 	endfunction
