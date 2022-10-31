@@ -1,5 +1,5 @@
 class Item extends uvm_sequence_item;
-    `uvm_object_utils(SeqItem)
+    `uvm_object_utils(Item)
     rand bit [2:0] r_mode;
     rand bit [31:0] fp_X;
     rand bit [31:0] fp_Y;
@@ -26,8 +26,8 @@ class Item extends uvm_sequence_item;
     //fp_X[22:0] <= 23'h8F;
     //fp_Y[22:0] <= 23'h8F; 
 
-  }
+    }
 
-  constraint c_r_mode {r_mode<=3'b100;}
+    constraint c_r_mode {r_mode<=3'b100;}
 
 endclass
