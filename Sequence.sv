@@ -19,7 +19,7 @@ class rand_sequence extends uvm_sequence;
             m_item.c_r_mode.constraint_mode(1);
             start_item(m_item);
             m_item.randomize();
-            `uvm_info("SEQ",$sformatf("New item: %s", item.convert2str()), UVM_HIGH);
+            `uvm_info("SEQ",$sformatf("New item: %s", Item.convert2str()), UVM_HIGH);
             finish_item(m_item);
         end
         `uvm_info("SEQ",$sformatf("Done generation of %0d items", n),UVM_LOW);
