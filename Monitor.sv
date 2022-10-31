@@ -20,9 +20,8 @@ class monitor extends uvm_monitor;
 
     virtual task run_phase (uvm_phase phase);
 		super.run_phase(phase);
-		forever begin
-			@(vif.cb);
-				if(vif.reset) begin
+		forever @(vif.cb) begin
+
 					Item item = Item::type_id::create("item");
 					item.fp_Z = vif.cb.fp_Z;   //Salida
                     item.ovrf = vif.cb.ovrf;   // overflow
@@ -33,7 +32,7 @@ class monitor extends uvm_monitor;
                     item.fp_Y = vif.fp_Y;      //B
 					mon_analysis_port.write(item);
 					`uvm_info("MON", $sformatf("SAW item %s", item.convert2str()), UVM_HIGH)
-				end		
+
 		end
 	endtask
 
