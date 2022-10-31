@@ -22,7 +22,7 @@ class rand_sequence extends uvm_sequence;
             `uvm_info("SEQ",$sformatf("New item: %s", item.convert2str()), UVM_HIGH);
             finish_item(item);
         end
-        `uvm_info("SEQ",$sformatf("Done generation of %0d items", n),UVM_LOW);
+        `uvm_info("SEQ",$sformatf("Done generation of %0d items", num),UVM_LOW);
 
     endtask
 
