@@ -49,7 +49,7 @@ class test1 extends test;
     virtual task run_phase(uvm_phase phase);
         `uvm_info("TEST_01", "Starting test execution", UVM_HIGH)
         phase.raise_objection(this);
-        seq.start(e0,a0,s0);
+        seq.start(e0.a0.s0);
         #200;
         phase.drop_objection(this);
     endtask
