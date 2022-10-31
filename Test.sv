@@ -17,7 +17,7 @@ class test extends uvm_test;
             `uvm_fatal("TEST","Did not get vif")
         uvm_config_db#(virtual dut_if)::set(this, "e0.a0.*","dut_vif",vif);
 
-        seq = base_seq::type_id::create("seq");
+        seq = rand_seq::type_id::create("seq");
         seq.randomize();
     endfunction
 
