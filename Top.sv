@@ -15,15 +15,15 @@ module tb
 
 	reg clk;
 
-  	always #10 clk =~ clk;
-  	dut_if _if(clk);
+	always #10 clk =~ clk;
+	dut_if _if(clk);
 	
 	top dut0(
-  	.clk (clk),
-  	.r_mode(_if.r_mode),
-  	.fp_X(_if.fp_X), .fp_Y(_if.fp_Y),
-  	.fp_Z(_if.fp_Z),
-  	.ovrf(_if.ovrf), .udrf(_if.udrf));
+	.clk (clk),
+	.r_mode(_if.r_mode),
+	.fp_X(_if.fp_X), .fp_Y(_if.fp_Y),
+	.fp_Z(_if.fp_Z),
+	.ovrf(_if.ovrf), .udrf(_if.udrf));
 
 
 	initial begin
