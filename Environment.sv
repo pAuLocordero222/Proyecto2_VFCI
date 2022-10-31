@@ -1,5 +1,5 @@
 class environment extends uvm_env;
-  `uvm_component_utils(env)
+  `uvm_component_utils(environment)
 
   function new(string name="env", uvm_component parent=null);
     super.new(name,parent);
