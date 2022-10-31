@@ -16,6 +16,6 @@ class environment extends uvm_env;
 
   virtual function void connect_phase(uvm_phase phase);
     super.connect_phase(phase);
-    a0.m0.mon_analysis_port.connect(sb0.m_analysis_imp);
+    //a0.m0.mon_analysis_port.connect(sb0.m_analysis_imp);
   endfunction
 endclass
