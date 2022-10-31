@@ -32,5 +32,5 @@ module tb
 
 		run_test("UVM_TESTNAME");
 	end
-	    
+
 endmodule
