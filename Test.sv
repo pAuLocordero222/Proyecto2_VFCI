@@ -47,7 +47,7 @@ class test1 extends test;
     endfunction
 
     virtual task run_phase(uvm_phase phase);
-        `uvm_info("TEST_01", "Starting test execution", UVM_HIGH)
+        `uvm_info("test1", "Starting test execution", UVM_HIGH)
         phase.raise_objection(this);
         seq.start(e0.a0.s0);
         #200;
