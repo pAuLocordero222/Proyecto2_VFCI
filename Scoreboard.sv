@@ -5,7 +5,8 @@ class scoreboard extends uvm_scoreboard;
         super.new(name, parent);
     endfunction
 
-    bit [23:0] mantissa_Z, mantissa_X, mantissa_Y;
+    bit [23:0]  mantissa_X, mantissa_Y;
+    bit [47:0] mantissa_Z,
     bit [7:0] exp_Z, exp_X, exp_Y;
     bit sign_Z, sign_X, sign_Y;
 
@@ -44,6 +45,11 @@ class scoreboard extends uvm_scoreboard;
   $display("mantissa X: %0h, mantissa Y: %0h, mantissa Z: %0h", mantissa_X, mantissa_Y, mantissa_Z);
   $display("exp X: %0h, exp Y: %0h, exp Z: %0h", exp_X, exp_Y, exp_Z);
 
+  //se normaliza de ser necesario
+  if (mantissa_Z[47])  begin
+    mantissa_Z<<1; //se hace un shift a la izquierda
+    exp_Z+1; //se suma 1 al exponente
+  end
 
 
 
