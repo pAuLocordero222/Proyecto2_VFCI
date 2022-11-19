@@ -50,7 +50,31 @@ class scoreboard extends uvm_scoreboard;
     mantissa_Z<<1; //se hace un shift a la izquierda
     exp_Z+1; //se suma 1 al exponente
   end
+  bit [26:0]mantissa_Z_norm=mantissa_Z[46:20];//en el numero Z se conservan solo los bits necesarios para redondear
 
+  //se toman
+  bit round=mantissa_Z_norm[2];
+  bit guard=mantissa_Z_norm[1];
+  bit guard=mantissa_Z_norm[0];
+  bit Z = [2:0]mantissa_Z_norm;  //24 bits mas significativos de la mantisa
+  bit Z_plus=Z+1; // Z + 1
+
+  case(item.r_mode)
+    3'b000:begin
+    end
+
+    3'b001:begin
+    end    
+
+    3'b010:begin
+    end
+
+    3'b011:begin
+    end
+
+    3'b100:begin
+    end
+  endcase
 
 
   endfunction
