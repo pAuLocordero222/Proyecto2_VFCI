@@ -9,6 +9,7 @@ class scoreboard extends uvm_scoreboard;
     bit exp_Z, exp_X, exp_Y;
     bit sign_Z, sign_X, sign_Y;
 
+    uvm_analysis_imp #(Item, scoreboard) m_analysis_imp;
 
     virtual function void build_phase(uvm_phase phase);
         
