@@ -31,7 +31,7 @@ class monitor extends uvm_monitor;
                     item.fp_X = vif.fp_X;      //A
                     item.fp_Y = vif.fp_Y;      //B
 					mon_analysis_port.write(item);
-					`uvm_info("MON", $sformatf("SAW item %s", item.convert2str("%h")), UVM_HIGH)
+					`uvm_info("MON", $sformatf("SAW item %s", item.convert2str()), UVM_HIGH)
 
 		end
 	endtask
