@@ -5,8 +5,8 @@ class scoreboard extends uvm_scoreboard;
         super.new(name, parent);
     endfunction
 
-    bit mantissa_Z, mantissa_X, mantissa_Y;
-    bit exp_Z, exp_X, exp_Y;
+    bit [23:0] mantissa_Z, mantissa_X, mantissa_Y;
+    bit [7:0] exp_Z, exp_X, exp_Y;
     bit sign_Z, sign_X, sign_Y;
 
     uvm_analysis_imp #(Item, scoreboard) m_analysis_imp;
@@ -41,8 +41,8 @@ class scoreboard extends uvm_scoreboard;
   exp_Z=exp_X+exp_Y-127;
 
   
-  $display("mantissa X: %0d, mantissa Y: %0d, mantissa Z: %0d", mantissa_X, mantissa_Y, mantissa_Z);
-  $display("exp X: %0d, exp Y: %0d, exp Z: %0d", exp_X, exp_Y, exp_Z);
+  $display("mantissa X: %0b, mantissa Y: %0b, mantissa Z: %0b", mantissa_X, mantissa_Y, mantissa_Z);
+  $display("exp X: %0b, exp Y: %0b, exp Z: %0b", exp_X, exp_Y, exp_Z);
 
 
 
