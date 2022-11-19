@@ -19,7 +19,7 @@ class scoreboard extends uvm_scoreboard;
 
     endfunction
 
-  virtual function write();
+  virtual function write(Item item);
   //referencia para comprobar funcionamiento de DUT
 
   //se toma el numero X
