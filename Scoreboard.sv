@@ -41,8 +41,8 @@ class scoreboard extends uvm_scoreboard;
   exp_Z=exp_X+exp_Y-127;
 
   
-  $display("mantissa X: %0b, mantissa Y: %0b, mantissa Z: %0b", mantissa_X, mantissa_Y, mantissa_Z);
-  $display("exp X: %0b, exp Y: %0b, exp Z: %0b", exp_X, exp_Y, exp_Z);
+  $display("mantissa X: %0h, mantissa Y: %0h, mantissa Z: %0h", mantissa_X, mantissa_Y, mantissa_Z);
+  $display("exp X: %0h, exp Y: %0h, exp Z: %0h", exp_X, exp_Y, exp_Z);
 
 
 
