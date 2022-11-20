@@ -6,7 +6,7 @@ class scoreboard extends uvm_scoreboard;
     endfunction
 
     bit [23:0]  mantissa_X, mantissa_Y;
-    bit [47:0] mantissa_Z,
+    bit [47:0] mantissa_Z;
     bit [7:0] exp_Z, exp_X, exp_Y;
     bit sign_Z, sign_X, sign_Y;
 
