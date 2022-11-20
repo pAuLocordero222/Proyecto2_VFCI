@@ -47,7 +47,7 @@ class scoreboard extends uvm_scoreboard;
 
   //se normaliza de ser necesario
   if (mantissa_Z[47])  begin
-    mantissa_Z<<1; //se hace un shift a la izquierda
+    mantissa_Z = mantissa_Z << 1; //se hace un shift a la izquierda
     exp_Z+1; //se suma 1 al exponente
   end
   bit [26:0]mantissa_Z_norm=mantissa_Z[46:20];//en el numero Z se conservan solo los bits necesarios para redondear
