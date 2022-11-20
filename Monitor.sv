@@ -20,12 +20,12 @@ class monitor extends uvm_monitor;
 
     virtual task run_phase (uvm_phase phase);
 		super.run_phase(phase);
-		forever @(vif.cb) begin
+		forever @(vif) begin
 
 					Item item = Item::type_id::create("item");
-					item.fp_Z = vif.cb.fp_Z;   //Salida
-                    item.ovrf = vif.cb.ovrf;   // overflow
-                    item.udrf = vif.cb.udrf;   //underflow
+					item.fp_Z = vif.fp_Z;   //Salida
+                    item.ovrf = vif.ovrf;   // overflow
+                    item.udrf = vif.udrf;   //underflow
 
                     item.r_mode = vif.r_mode;  //mode
                     item.fp_X = vif.fp_X;      //A
