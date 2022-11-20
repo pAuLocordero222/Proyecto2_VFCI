@@ -26,6 +26,7 @@ class scoreboard extends uvm_scoreboard;
     bit inf_X, inf_Y, inf;
     bit zer_X, zer_Y, zer;
     bit [31:0]fp_Z_expected;//Valor para comparar con DUT
+    bit except;
   
 
 
@@ -64,12 +65,7 @@ class scoreboard extends uvm_scoreboard;
 
   sign_Z = sign_X ^ sign_Y; //Signo de Z
 
-  /*
-  $display("mantissa X: %0h, mantissa Y: %0h, mantissa Z: %0h", frac_X, frac_Y, frac_Z_full);
-  $display("exp X: %0h, exp Y: %0h, exp Z: %0h", exp_X, exp_Y, exp_Z);
-  $display("X: %0h, Y: %0h, Z: %0h", {sign_X, exp_X, frac_X}, {sign_Y, exp_Y, frac_Y}, {sign_Z, exp_Z, frac_Z_full} );
-  $display("---------------------------------------------------------------------------------------------------------");
-*/
+
   //se normaliza de ser necesario
   if (!frac_Z_full[47])  begin
     frac_Z_shift = frac_Z_full << 1; //se hace un shift a la izquierda
@@ -154,10 +150,12 @@ class scoreboard extends uvm_scoreboard;
   nan = nan_X | nan_Y | nan_Z;
   
 
-  fp_Z_expected = {sign_Z, exp_Z_final, frac_Z_final};
+  fp_Z_expected= nan ? 32'h7fc00000 : (inf ? {sign_Z, 8'hff, 23'b0} : (zer ? {sign_Z, 8'h00, 23'b0} : {sign_Z, exp_Z_final, frac_Z_final}));
 
 
-
+  `uvm_info("SCBD", $sformatf("Mode = %b X = %h Y = %h, DUT = %h Expected = %h", item.r_mode,item.fp_X,item.fp_Y,item.fp_Z,fp_Z_expected), UVM_LOW)  
+  `uvm_info("SCBD", $sformatf("Overflow DUT = %b Underflow DUT = %b  Overflow Expected = %b Underflow Expected = %b", item.ovrf,item.udrf,inf,zer), UVM_LOW)      
+  `uvm_info("SCBD", $sformatf("------------------------------------------------------------------------------------"), UVM_LOW)    
 
   endfunction
     
