@@ -11,6 +11,7 @@ class scoreboard extends uvm_scoreboard;
     bit [26:0] frac_Z_norm;
     bit [7:0] exp_Z, exp_X, exp_Y;
     bit sign_Z, sign_X, sign_Y;
+    bit norm_n;
     bit round;
     bit guard;
     bit sticky;
