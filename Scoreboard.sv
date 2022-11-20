@@ -22,9 +22,9 @@ class scoreboard extends uvm_scoreboard;
     real exp_flag;
     bit udrf, ovrf;
     real bias;
-    bit nan_X, nan_Y, nan_Z;
-    bit inf_X, inf_Y;
-    bit zer_X, zer_Y;
+    bit nan_X, nan_Y, nan_Z, nan;
+    bit inf_X, inf_Y, inf;
+    bit zer_X, zer_Y, zer;
     bit [31:0]fp_Z_expected;//Valor para comparar con DUT
   
 
