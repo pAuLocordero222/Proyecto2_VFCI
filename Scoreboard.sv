@@ -15,8 +15,8 @@ class scoreboard extends uvm_scoreboard;
     bit round;
     bit guard;
     bit sticky;
-    bit [23:0]Z;
-    bit [23:0]Z_plus;
+    bit [22:0]Z;
+    bit [22:0]Z_plus;
     bit [22:0]frac_Z_final;
     bit [7:0]exp_Z_final;
     real exp_flag;
@@ -83,42 +83,42 @@ class scoreboard extends uvm_scoreboard;
   round=frac_Z_norm[2];
   guard=frac_Z_norm[1];
   sticky=frac_Z_norm[0];
-  Z = frac_Z_norm[26:3];  //24 bits mas significativos de la mantisa
+  Z = frac_Z_norm[25:3];  //24 bits mas significativos de la mantisa
   Z_plus=Z+1; // Z + 1
 
   case(item.r_mode)
     3'b000:begin
       if (!round) begin
-        frac_Z_final = Z[22:0];
+        frac_Z_final = Z;
       end
       else if (round & (guard | sticky) == 1) begin
-        frac_Z_final = Z_plus[22:0];
+        frac_Z_final = Z_plus;
       end
       else if (round & (guard | sticky) == 0) begin
         if (!Z[0]) begin
-          frac_Z_final = Z[22:0];
+          frac_Z_final = Z;
         end
         else begin
-          frac_Z_final = Z_plus[22:0];
+          frac_Z_final = Z_plus;
         end
       end
 
     end
 
     3'b001:begin
-      frac_Z_final = Z[22:0];
+      frac_Z_final = Z;
     end    
 
     3'b010:begin
-      frac_Z_final = sign_Z ? Z_plus[22:0] : Z[22:0]; 
+      frac_Z_final = sign_Z ? Z_plus : Z; 
     end
 
     3'b011:begin
-      frac_Z_final = sign_Z ? Z[22:0] : Z_plus[22:0];
+      frac_Z_final = sign_Z ? Z : Z_plus;
     end
 
     3'b100:begin
-      frac_Z_final = round ? Z_plus[22:0] : Z[22:0];
+      frac_Z_final = round ? Z_plus : Z;
     end 
   endcase
 
