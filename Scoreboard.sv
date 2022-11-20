@@ -5,7 +5,7 @@ class scoreboard extends uvm_scoreboard;
         super.new(name, parent);
     endfunction
 
-    bit [22:0] mantissa_X, mantissa_Y;
+    bit [22:0] frac_X, frac_Y;
     bit [47:0] frac_Z_full;
     bit [47:0] frac_Z_shift;
     bit [26:0] frac_Z_norm;
@@ -19,6 +19,10 @@ class scoreboard extends uvm_scoreboard;
     bit [23:0]Z_plus;
     bit [22:0]frac_Z_final;
     bit [7:0]exp_Z_final;
+    real exp_flag;
+    bit udrf, ovrf;
+    real bias;
+
 
     uvm_analysis_imp #(Item, scoreboard) m_analysis_imp;
 
@@ -34,29 +38,31 @@ class scoreboard extends uvm_scoreboard;
   //referencia para comprobar funcionamiento de DUT
 
   //se toma el numero X
-  mantissa_X={1'b1,item.fp_X[22:0]};
+  frac_X={1'b1,item.fp_X[22:0]};
   exp_X=item.fp_X[30:23];
   sign_X=item.fp_X[31];
 
   
 
   //se toma el numero Y
-  mantissa_Y={1'b1, item.fp_Y[22:0]};
+  frac_Y={1'b1, item.fp_Y[22:0]};
   exp_Y=item.fp_Y[30:23];
   sign_Y=item.fp_Y[31];
 
   //se multiplican las mantissas de X y Y
-  frac_Z_full=mantissa_X*mantissa_Y;
+  frac_Z_full=frac_X*frac_Y;
 
   //se calcula el exponente Z
   exp_Z=exp_X+exp_Y-127;
 
+  exp_flag = $itor(exp_X)+$itor(exp_Y);
+
   sign_Z = sign_X ^ sign_Y; //Signo de Z
 
   /*
-  $display("mantissa X: %0h, mantissa Y: %0h, mantissa Z: %0h", mantissa_X, mantissa_Y, frac_Z_full);
+  $display("mantissa X: %0h, mantissa Y: %0h, mantissa Z: %0h", frac_X, frac_Y, frac_Z_full);
   $display("exp X: %0h, exp Y: %0h, exp Z: %0h", exp_X, exp_Y, exp_Z);
-  $display("X: %0h, Y: %0h, Z: %0h", {sign_X, exp_X, mantissa_X}, {sign_Y, exp_Y, mantissa_Y}, {sign_Z, exp_Z, frac_Z_full} );
+  $display("X: %0h, Y: %0h, Z: %0h", {sign_X, exp_X, frac_X}, {sign_Y, exp_Y, frac_Y}, {sign_Z, exp_Z, frac_Z_full} );
   $display("---------------------------------------------------------------------------------------------------------");
 */
   //se normaliza de ser necesario
@@ -69,6 +75,7 @@ class scoreboard extends uvm_scoreboard;
   norm_n = frac_Z_full[47];
 
   exp_Z_final = exp_Z + norm_n;
+
 
 
   //se toman
@@ -111,8 +118,43 @@ class scoreboard extends uvm_scoreboard;
 
     3'b100:begin
       frac_Z_final = round ? Z_plus[22:0] : Z[22:0];
-    end
+    end 
   endcase
+
+
+  //Logica para Overflow y Underflow
+  if (norm_n) begin
+    udrf = exp_flag<=126 ? 1 : 0;
+    ovrf = exp_flag>=255+126 ? 1 : 0;
+  end
+  else if (!norm_n) begin
+    udrf = exp_flag<=127 ? 1 : 0;
+    ovrf = exp_flag>=255+127 ? 1 : 0;
+  end
+
+
+  //Exception Handler
+  bit nan_X, nan_Y, nan_Z;
+  bit inf_X, inf_Y;
+  bit zer_X, zer_Y;
+  
+  inf_X = &exp_X & ~|frac_X;
+  inf_Y = &exp_Y & ~|frac_Y;
+  inf = inf_X | inf_Y | ovrf;
+  
+  zer_X = ~|exp_X;
+  zer_Y = ~|exp_Y;
+  zer = zer_X | zer_Y | udrf;
+  
+  nan_X = &exp_X & |frac_X;
+  nan_Y = &exp_Y & |frac_Y;
+  nan_Z = {&exp_X & zer_Y} | {&exp_Y & zer_X};
+  nan = nan_X | nan_Y | nan_Z;
+  
+  bit [31:0]fp_Z_expected;//Valor para comparar con DUT
+  fp_Z_expected = {sign_Z, exp_Z_final, frac_Z_final};
+
+
 
 
   endfunction
