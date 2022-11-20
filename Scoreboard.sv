@@ -158,10 +158,10 @@ class scoreboard extends uvm_scoreboard;
   `uvm_info("SCBD", $sformatf("------------------------------------------------------------------------------------"), UVM_LOW)    
 */
 
-uvm_info("SCBD", $sformatf("Mode=%b Op_x=%b Op_y=%b Result=%b Correct=%b Overflow=%b Underflow=%b", item.r_mode,item.fp_X,item.fp_Y,item.fp_Z,fp_Z_expected,item.ovrf,item.udrf), UVM_LOW)
+`uvm_info("SCBD", $sformatf("Mode=%b Op_x=%b Op_y=%b Result=%b Correct=%b Overflow=%b Underflow=%b", item.r_mode,item.fp_X,item.fp_Y,item.fp_Z,fp_Z_expected,item.ovrf,item.udrf), UVM_LOW)
         
         if(item.fp_Z !=fp_Z_expected ) begin
-            uvm_error("SCBD",$sformatf("ERROR ! Result=%b Correct=%b", item.fp_Z,fp_Z_expected))
+            `uvm_error("SCBD",$sformatf("ERROR ! Result=%b Correct=%b", item.fp_Z,fp_Z_expected))
         end else begin
             `uvm_info("SCBD",$sformatf("PASS ! Result=%b Correct=%b",item.fp_Z,fp_Z_expected), UVM_HIGH)
         end
