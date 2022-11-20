@@ -152,7 +152,7 @@ class scoreboard extends uvm_scoreboard;
 
   fp_Z_expected= nan ? 32'h7fc00000 : (inf ? {sign_Z, 8'hff, 23'b0} : (zer ? {sign_Z, 8'h00, 23'b0} : {sign_Z, exp_Z_final, frac_Z_final}));
 
-
+$display("-----------------------------------------------------------------------------");
 `uvm_info("SCBD", $sformatf("Mode=%0h Op_x=%0h Op_y=%0h DUT_OUT=%h Expected=%0h Overflow=%0h Underflow=%0h", item.r_mode,item.fp_X,item.fp_Y,item.fp_Z,fp_Z_expected,item.ovrf,item.udrf), UVM_LOW)
         
         if(item.fp_Z !=fp_Z_expected ) begin
