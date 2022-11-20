@@ -74,7 +74,7 @@ class scoreboard extends uvm_scoreboard;
   round=frac_Z_norm[2];
   guard=frac_Z_norm[1];
   sticky=frac_Z_norm[0];
-  Z = [26:3]frac_Z_norm;  //24 bits mas significativos de la mantisa
+  Z = frac_Z_norm[26:3];  //24 bits mas significativos de la mantisa
   Z_plus=Z+1; // Z + 1
 
   case(item.r_mode)
