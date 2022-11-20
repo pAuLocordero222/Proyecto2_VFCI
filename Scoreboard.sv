@@ -40,7 +40,7 @@ class scoreboard extends uvm_scoreboard;
         m_analysis_imp = new("m_analysis_imp",this);
 
         fcsv = $fopen("./resultados.csv", "w");
-        $fwrite(fcsv, "X, Y, Z, udrf, ovrf, Exp_Z, Exp_udrf, Exp_ovrf \n");
+        $fwrite(fcsv, "X, Y, Z, Underflow, Overflow, Expected Z, Expected Underflow, Expected Overflow \n");
 
     endfunction
 
