@@ -25,6 +25,7 @@ class scoreboard extends uvm_scoreboard;
     bit nan_X, nan_Y, nan_Z;
     bit inf_X, inf_Y;
     bit zer_X, zer_Y;
+    bit [31:0]fp_Z_expected;//Valor para comparar con DUT
   
 
 
@@ -152,7 +153,7 @@ class scoreboard extends uvm_scoreboard;
   nan_Z = {&exp_X & zer_Y} | {&exp_Y & zer_X};
   nan = nan_X | nan_Y | nan_Z;
   
-  bit [31:0]fp_Z_expected;//Valor para comparar con DUT
+
   fp_Z_expected = {sign_Z, exp_Z_final, frac_Z_final};
 
 
