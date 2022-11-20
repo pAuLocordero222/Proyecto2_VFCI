@@ -22,6 +22,10 @@ class scoreboard extends uvm_scoreboard;
     real exp_flag;
     bit udrf, ovrf;
     real bias;
+    bit nan_X, nan_Y, nan_Z;
+    bit inf_X, inf_Y;
+    bit zer_X, zer_Y;
+  
 
 
     uvm_analysis_imp #(Item, scoreboard) m_analysis_imp;
@@ -134,10 +138,7 @@ class scoreboard extends uvm_scoreboard;
 
 
   //Exception Handler
-  bit nan_X, nan_Y, nan_Z;
-  bit inf_X, inf_Y;
-  bit zer_X, zer_Y;
-  
+
   inf_X = &exp_X & ~|frac_X;
   inf_Y = &exp_Y & ~|frac_Y;
   inf = inf_X | inf_Y | ovrf;
