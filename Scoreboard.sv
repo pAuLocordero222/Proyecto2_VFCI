@@ -44,7 +44,7 @@ class scoreboard extends uvm_scoreboard;
   
   $display("mantissa X: %0h, mantissa Y: %0h, mantissa Z: %0h", mantissa_X, mantissa_Y, mantissa_Z);
   $display("exp X: %0h, exp Y: %0h, exp Z: %0h", exp_X, exp_Y, exp_Z);
-
+/*
   //se normaliza de ser necesario
   if (mantissa_Z[47])  begin
     mantissa_Z = mantissa_Z << 1; //se hace un shift a la izquierda
@@ -75,7 +75,7 @@ class scoreboard extends uvm_scoreboard;
     3'b100:begin
     end
   endcase
-
+*/
 
   endfunction
     
