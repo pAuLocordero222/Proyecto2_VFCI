@@ -5,10 +5,17 @@ class scoreboard extends uvm_scoreboard;
         super.new(name, parent);
     endfunction
 
-    bit [23:0]  mantissa_X, mantissa_Y;
-    bit [47:0] mantissa_Z;
+    bit [23:0] mantissa_X, mantissa_Y;
+    bit [47:0] frac_Z_full;
+    bit [47:0] frac_Z_shift;
+    bit [26:0] frac_Z_norm;
     bit [7:0] exp_Z, exp_X, exp_Y;
     bit sign_Z, sign_X, sign_Y;
+    bit round;
+    bit guard;
+    bit sticky;
+    bit Z;
+    bit Z_plus;
 
     uvm_analysis_imp #(Item, scoreboard) m_analysis_imp;
 
@@ -36,31 +43,35 @@ class scoreboard extends uvm_scoreboard;
   sign_Y=item.fp_Y[31];
 
   //se multiplican las mantissas de X y Y
-  mantissa_Z=mantissa_X*mantissa_Y;
+  frac_Z_full=mantissa_X*mantissa_Y;
 
   //se calcula el exponente Z
   exp_Z=exp_X+exp_Y-127;
 
 
   
-  $display("mantissa X: %0h, mantissa Y: %0h, mantissa Z: %0h", mantissa_X, mantissa_Y, mantissa_Z);
+  $display("mantissa X: %0h, mantissa Y: %0h, mantissa Z: %0h", mantissa_X, mantissa_Y, frac_Z_full);
   $display("exp X: %0h, exp Y: %0h, exp Z: %0h", exp_X, exp_Y, exp_Z);
-  $display("X: %0h, Y: %0h, Z: %0h", {sign_X, exp_X, mantissa_X}, {sign_Y, exp_Y, mantissa_Y}, {sign_Z, exp_Z, mantissa_Z} );
+  $display("X: %0h, Y: %0h, Z: %0h", {sign_X, exp_X, mantissa_X}, {sign_Y, exp_Y, mantissa_Y}, {sign_Z, exp_Z, frac_Z_full} );
   $display("---------------------------------------------------------------------------------------------------------");
-/*
+
   //se normaliza de ser necesario
-  if (mantissa_Z[47])  begin
-    mantissa_Z = mantissa_Z << 1; //se hace un shift a la izquierda
-    exp_Z = exp_Z+1; //se suma 1 al exponente
+  if (!frac_Z_full[47])  begin
+    frac_Z_shift = frac_Z_full << 1; //se hace un shift a la izquierda
   end
-  bit [26:0]mantissa_Z_norm=mantissa_Z[46:20];//en el numero Z se conservan solo los bits necesarios para redondear
+  else frac_Z_shift = frac_Z_full;
+  frac_Z_norm[26:1]=frac_Z_shift[47:22];//en el numero Z se conservan solo los bits necesarios para redondear
+  frac_Z_norm[0] = |frac_Z_shift[21:0]; // sticky bit
+  norm_n = frac_Z_full[47];
+
+  exp_Z = exp_Z + norm_n;
 
   //se toman
-  bit round=mantissa_Z_norm[2];
-  bit guard=mantissa_Z_norm[1];
-  bit guard=mantissa_Z_norm[0];
-  bit Z = [2:0]mantissa_Z_norm;  //24 bits mas significativos de la mantisa
-  bit Z_plus=Z+1; // Z + 1
+  round=frac_Z_norm[2];
+  guard=frac_Z_norm[1];
+  sticky=frac_Z_norm[0];
+  Z = [2:0]frac_Z_norm;  //24 bits mas significativos de la mantisa
+  Z_plus=Z+1; // Z + 1
 
   case(item.r_mode)
     3'b000:begin
@@ -78,7 +89,7 @@ class scoreboard extends uvm_scoreboard;
     3'b100:begin
     end
   endcase
-*/
+
 
   endfunction
     
