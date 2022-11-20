@@ -44,19 +44,19 @@ class scoreboard extends uvm_scoreboard;
   //referencia para comprobar funcionamiento de DUT
 
   //se toma el numero X
-  frac_X={1'b1,item.fp_X[22:0]};
+  frac_X=item.fp_X[22:0];
   exp_X=item.fp_X[30:23];
   sign_X=item.fp_X[31];
 
   
 
   //se toma el numero Y
-  frac_Y={1'b1, item.fp_Y[22:0]};
+  frac_Y=item.fp_Y[22:0];
   exp_Y=item.fp_Y[30:23];
   sign_Y=item.fp_Y[31];
 
   //se multiplican las mantissas de X y Y
-  frac_Z_full=frac_X*frac_Y;
+  frac_Z_full={1'b1,frac_X}*{1'b1,frac_Y};
 
   //se calcula el exponente Z
   exp_Z=exp_X+exp_Y-127;
@@ -84,7 +84,7 @@ class scoreboard extends uvm_scoreboard;
   guard=frac_Z_norm[1];
   sticky=frac_Z_norm[0];
   Z = frac_Z_norm[25:3];  //24 bits mas significativos de la mantisa
-  Z_plus=Z+1; // Z + 1
+  Z_plus=Z+1'b1; // Z + 1
 
   case(item.r_mode)
     3'b000:begin
