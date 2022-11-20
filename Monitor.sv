@@ -20,7 +20,7 @@ class monitor extends uvm_monitor;
 
     virtual task run_phase (uvm_phase phase);
 		super.run_phase(phase);
-		forever @(vif) begin
+		forever @(vif.clk) begin
 
 					Item item = Item::type_id::create("item");
 					item.fp_Z = vif.fp_Z;   //Salida
