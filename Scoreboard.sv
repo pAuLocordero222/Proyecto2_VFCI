@@ -40,7 +40,7 @@ class scoreboard extends uvm_scoreboard;
         m_analysis_imp = new("m_analysis_imp",this);
 
         fcsv = $fopen("./resultados.csv", "w");
-        $fwrite(fcsv, "X, Y, Z, udrf, ovrf, Exp_Z, Exp_udrf, Exp_ovrf");
+        $fwrite(fcsv, "X, Y, Z, udrf, ovrf, Exp_Z, Exp_udrf, Exp_ovrf \n");
 
     endfunction
 
@@ -159,7 +159,7 @@ class scoreboard extends uvm_scoreboard;
 $display("-----------------------------------------------------------------------------");
 `uvm_info("SCBD", $sformatf("Mode=%0h Op_x=%0h Op_y=%0h DUT_OUT=%h Expected=%0h Overflow=%0h Underflow=%0h", item.r_mode,item.fp_X,item.fp_Y,item.fp_Z,fp_Z_expected,item.ovrf,item.udrf), UVM_LOW)
 
-$fwrite(fcsv, "%0h, %0h, %0h, %0b, %0b, %0h, %0b, %0b", item.fp_X, item.fp_Y, item.fp_Z, item.udrf, item.ovrf, fp_Z_expected, udrf, ovrf);
+$fwrite(fcsv, "%0h, %0h, %0h, %0b, %0b, %0h, %0b, %0b \n", item.fp_X, item.fp_Y, item.fp_Z, item.udrf, item.ovrf, fp_Z_expected, udrf, ovrf);
 
         if(item.fp_Z !=fp_Z_expected ) begin
             `uvm_error("SCBD",$sformatf("TEST FAILED!!!! DUT_OUT=%0h Expected=%0h", item.fp_Z,fp_Z_expected))
