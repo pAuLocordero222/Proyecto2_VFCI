@@ -41,9 +41,11 @@ class scoreboard extends uvm_scoreboard;
   //se calcula el exponente Z
   exp_Z=exp_X+exp_Y-127;
 
+
   
   $display("mantissa X: %0h, mantissa Y: %0h, mantissa Z: %0h", mantissa_X, mantissa_Y, mantissa_Z);
   $display("exp X: %0h, exp Y: %0h, exp Z: %0h", exp_X, exp_Y, exp_Z);
+  $display("X: %0h, Y: %0h, Z: %0h", {sign_X, exp_X, mantissa_X}, {sign_Y, exp_Y, mantissa_Y}, {sign_Z, exp_Z, mantissa_Z} );
   $display("---------------------------------------------------------------------------------------------------------");
 /*
   //se normaliza de ser necesario
