@@ -22,12 +22,22 @@ class Item extends uvm_sequence_item;
     fp_X[30:23] <= 8'hFE;
     fp_Y[30:23] <= 8'hFE;
 
-    //Fraccion
-    //fp_X[22:0] <= 23'h8F;
-    //fp_Y[22:0] <= 23'h8F; 
 
     }
 
     constraint c_r_mode {r_mode<=3'b100;}
+
+    constraint c_ovrf {
+        (fp_X[30:23] + fp_Y[30:23] - 127 >= 255)
+    }
+
+    constraint c_udrf {
+        (fp_X[30:23] + fp_Y[30:23] - 126 <= 0)
+    }
+
+    constraint c_nan {
+        (&fp_X[30:23] & |fp_X[22:0])|(&fp_Y[30:23] & |fp_Y[22:0])|((&fp_X[30:23] & ~|fp_X[22:0]) & ~|fp_Y[23:0])|((&fp_Y[30:23] & ~|fp_Y[22:0]) & ~|fp_X[23:0]);
+
+    }
 
 endclass

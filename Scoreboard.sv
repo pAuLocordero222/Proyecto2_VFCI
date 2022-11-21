@@ -90,7 +90,7 @@ class scoreboard extends uvm_scoreboard;
   Z = frac_Z_norm[25:3];  //24 bits mas significativos de la mantisa
   Z_plus=Z+1'b1; // Z + 1
 
-  case(item.r_mode)
+  case(item.r_mode)// se evaluan los distintos casos para redondeo tulizando la logica que se explica en el documento
     3'b000:begin
       if (!round) begin
         frac_Z_final = Z;
@@ -138,7 +138,7 @@ class scoreboard extends uvm_scoreboard;
   end
 
 
-  //Exception Handler
+  //Exception Handler, esta logica para manejo de excepciones se obtuvo en base al codigo del DUT
 
   inf_X = &exp_X & ~|frac_X;
   inf_Y = &exp_Y & ~|frac_Y;
@@ -154,8 +154,8 @@ class scoreboard extends uvm_scoreboard;
   nan = nan_X | nan_Y | nan_Z;
   
 
-  fp_Z_expected= nan ? 32'h7fc00000 : (inf ? {sign_Z, 8'hff, 23'b0} : (zer ? {sign_Z, 8'h00, 23'b0} : {sign_Z, exp_Z_final, frac_Z_final}));
-
+  fp_Z_expected= nan ? 32'h7fc00000 : (inf ? {sign_Z, 8'hff, 23'b0} : (zer ? {sign_Z, 8'h00, 23'b0} : {sign_Z, exp_Z_final, frac_Z_final}));// se evalua de cual caso se trata, nan, zero, infinito o un numero valido
+                                                                                                                                            //se obtiene el valor esperado final en base a esto
 $display("-----------------------------------------------------------------------------");
 `uvm_info("SCBD", $sformatf("Mode=%0h Op_x=%0h Op_y=%0h DUT_OUT=%h Expected=%0h Overflow=%0h Underflow=%0h", item.r_mode,item.fp_X,item.fp_Y,item.fp_Z,fp_Z_expected,item.ovrf,item.udrf), UVM_LOW)
 
