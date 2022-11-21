@@ -154,7 +154,28 @@ class scoreboard extends uvm_scoreboard;
   nan = nan_X | nan_Y | nan_Z;
   
 
-  fp_Z_expected= nan ? 32'h7fc00000 : (inf ? {sign_Z, 8'hff, 23'b0} : (zer ? {sign_Z, 8'h00, 23'b0} : {sign_Z, exp_Z_final, frac_Z_final}));// se evalua de cual caso se trata, nan, zero, infinito o un numero valido
+  //fp_Z_expected= nan ? 32'h7fc00000 : (inf ? {sign_Z, 8'hff, 23'b0} : (zer ? {sign_Z, 8'h00, 23'b0} : {sign_Z, exp_Z_final, frac_Z_final}));// se evalua de cual caso se trata, nan, zero, infinito o un numero valido
+  
+  case(zer, inf, nan)
+    000: fp_Z_expected = {sign_Z, exp_Z_final, frac_Z_final};
+
+    001: fp_Z_expected = {sign_Z, 9{1'b1}, 22{1'b0}}; //NaN
+
+    010: fp_Z_expected = {sign_Z, 8{1'b1}, 23{1'b0}}; //Inf
+
+    011: fp_Z_expected = {sign_Z, 9{1'b1}, 22{1'b0}};
+
+    100: fp_Z_expected = {sign_Z, 31{1'b0}}; //Zer
+
+    101: fp_Z_expected = {sign_Z, 9{1'b1}, 22{1'b0}};
+
+    110: fp_Z_expected = {sign_Z, 9{1'b1}, 22{1'b0}};
+    
+    111: fp_Z_expected = {sign_Z, 9{1'b1}, 22{1'b0}};
+    
+  endcase
+  
+  
                                                                                                                                             //se obtiene el valor esperado final en base a esto
 $display("-----------------------------------------------------------------------------");
 `uvm_info("SCBD", $sformatf("Mode=%0h Op_x=%0h Op_y=%0h DUT_OUT=%h Expected=%0h Overflow=%0h Underflow=%0h", item.r_mode,item.fp_X,item.fp_Y,item.fp_Z,fp_Z_expected,item.ovrf,item.udrf), UVM_LOW)
