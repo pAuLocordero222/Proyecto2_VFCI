@@ -20,6 +20,7 @@ class rand_sequence extends uvm_sequence;
             item.c_ovrf.constraint_mode(0);
             item.c_udrf.constraint_mode(0);
             item.c_nan.constraint_mode(0);
+            item.c_alt.constraint_mode(0);
             start_item(item);
             item.randomize();
             //`uvm_info("SEQ",$sformatf("New item: %s", item.convert2str()), UVM_HIGH);
@@ -51,6 +52,7 @@ class ovrf_seq extends uvm_sequence;
             item.c_ovrf.constraint_mode(1);
             item.c_udrf.constraint_mode(0);
             item.c_nan.constraint_mode(0);
+            item.c_alt.constraint_mode(0);
      
             start_item(item);
             item.randomize();
@@ -80,6 +82,7 @@ class udrf_seq extends uvm_sequence;
             item.c_ovrf.constraint_mode(0);
             item.c_udrf.constraint_mode(1);
             item.c_nan.constraint_mode(0);
+            item.c_alt.constraint_mode(0);
      
             start_item(item);
             item.randomize();
@@ -110,6 +113,37 @@ class nan_seq extends uvm_sequence;
             item.c_ovrf.constraint_mode(0);
             item.c_udrf.constraint_mode(0);
             item.c_nan.constraint_mode(1);
+            item.c_alt.constraint_mode(0);
+     
+            start_item(item);
+            item.randomize();
+            finish_item(item);
+        end
+
+    endtask
+endclass
+
+class ones_zeros_seq extends uvm_sequence;
+    `uvm_object_utils(ones_zeros_seq);
+  
+    function new(string name="ones_zeros_seq");
+        super.new(name);
+    endfunction
+
+    rand int num;
+    constraint c_num{soft num inside {[40:60]};}
+
+    virtual task body();
+        for(int i = 0; i < num; i++) begin
+            Item item = Item::type_id::create("m_item");
+
+            //Constraint modes
+            item.c_rand_data.constraint_mode(0);
+            item.c_r_mode.constraint_mode(1);
+            item.c_ovrf.constraint_mode(0);
+            item.c_udrf.constraint_mode(0);
+            item.c_nan.constraint_mode(0);
+            item.c_alt.constraint_mode(1);
      
             start_item(item);
             item.randomize();
@@ -132,6 +166,22 @@ class seq_caso1 extends uvm_sequence;//secuencia con una serie de valores random
 
     task body();
         `uvm_do(rndm_seq);
+    endtask 
+
+endclass
+
+class seq_caso_10 extends uvm_sequence;//secuencia con una serie de valores randomizados
+
+    `uvm_object_utils(seq_caso_10);
+
+    function new(string name="seq_caso_10");
+        super.new(name);
+    endfunction
+
+    ones_zeros_seq oz_seq;
+
+    task body();
+        `uvm_do(oz_seq);
     endtask 
 
 endclass

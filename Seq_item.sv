@@ -33,7 +33,6 @@ class Item extends uvm_sequence_item;
     constraint c_r_mode {r_mode<=3'b100;}
 
     constraint c_ovrf {
-        //((fp_X[30:23]+fp_Y[30:23]-127)==8'hFF)|( (&fp_X[30:23] & ~|fp_X[22:0]) & |fp_Y[30:23] )|( (&fp_Y[30:23] & ~|fp_X[22:0]) & |fp_X[30:23] );
         (fp_X[30:23]+fp_Y[30:23] >= 382);
     }
 
@@ -43,7 +42,10 @@ class Item extends uvm_sequence_item;
 
     constraint c_nan {
         (&fp_X[30:23] & |fp_X[22:0])|(&fp_Y[30:23] & |fp_Y[22:0])|((&fp_X[30:23] & ~|fp_X[22:0]) & ~|fp_Y[23:0])|((&fp_Y[30:23] & ~|fp_Y[22:0]) & ~|fp_X[23:0]);
+    }
 
+    constraint c_alt {
+        (fp_X = 32'hffffffff & fp_Y = 32'b0) | (fp_X = 32'b0 & fp_Y = 32'hffffffff) | (fp_X = 32'hffffffff & fp_Y = 32'hffffffff) | (fp_X = fp_X = 32'b0 & fp_Y = 3fp_X = 32'b0);
     }
 
 endclass
