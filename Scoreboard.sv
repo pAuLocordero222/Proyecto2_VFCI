@@ -27,6 +27,7 @@ class scoreboard extends uvm_scoreboard;
     bit zer_X, zer_Y, zer;
     bit [31:0]fp_Z_expected;//Valor para comparar con DUT
     bit except;
+    bit [2:0]zin;
     int fcsv;
   
 
@@ -153,10 +154,10 @@ class scoreboard extends uvm_scoreboard;
   nan_Z = {&exp_X & zer_Y} | {&exp_Y & zer_X};
   nan = nan_X | nan_Y | nan_Z;
   
-
+  zin = {zer, inf, nan};
   //fp_Z_expected= nan ? 32'h7fc00000 : (inf ? {sign_Z, 8'hff, 23'b0} : (zer ? {sign_Z, 8'h00, 23'b0} : {sign_Z, exp_Z_final, frac_Z_final}));// se evalua de cual caso se trata, nan, zero, infinito o un numero valido
   
-  case({zer, inf, nan})
+  case(zin)
     000: fp_Z_expected = {sign_Z, exp_Z_final, frac_Z_final};
 
     001: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000}; //NaN
@@ -168,10 +169,9 @@ class scoreboard extends uvm_scoreboard;
     100: fp_Z_expected = {sign_Z, 31'b0000000000000000000000000000000}; //Zer
 
     101: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
-
-    110: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
     
     111: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
+
     
   endcase
   
