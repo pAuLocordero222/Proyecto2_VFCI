@@ -761,7 +761,7 @@ module NET(
   //assign fp_Z = nan ? 32'h7fc00000 : (inf ? {Z[31], 8'hff, 23'b0} : (zer ? {Z[31], 8'h00, 23'b0} : Z));
 
   always @* begin
-    case({zer, inf, nan}})
+    case({zer, inf, nan})
     3'b000: fp_Z = Z;
 
     3'b001: fp_Z = {Z[31], 31'b1111111110000000000000000000000}; //NaN
