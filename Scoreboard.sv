@@ -159,24 +159,23 @@ class scoreboard extends uvm_scoreboard;
   case({zer, inf, nan})
     000: fp_Z_expected = {sign_Z, exp_Z_final, frac_Z_final};
 
-    001: fp_Z_expected = {sign_Z, {9{1'b1}}, {22{1'b0}}}; //NaN
+    001: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000}; //NaN
 
-    010: fp_Z_expected = {sign_Z, {8{1'b1}}, {23{1'b0}}}; //Inf
+    010: fp_Z_expected = {sign_Z, 31'b1111111100000000000000000000000}; //Inf
 
-    011: fp_Z_expected = {sign_Z, {9{1'b1}}, {22{1'b0}}};
+    011: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
 
-    100: fp_Z_expected = {sign_Z, {31{1'b0}}}; //Zer
+    100: fp_Z_expected = {sign_Z, 31'b0000000000000000000000000000000}; //Zer
 
-    101: fp_Z_expected = {sign_Z, {9{1'b1}}, {22{1'b0}}};
+    101: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
 
-    110: fp_Z_expected = {sign_Z, {9{1'b1}}, {22{1'b0}}};
+    110: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
     
-    111: fp_Z_expected = {sign_Z, {9{1'b1}}, {22{1'b0}}};
+    111: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
     
   endcase
   
-  
-                                                                                                                                            //se obtiene el valor esperado final en base a esto
+  //se obtiene el valor esperado final en base a esto
 $display("-----------------------------------------------------------------------------");
 `uvm_info("SCBD", $sformatf("Mode=%0h Op_x=%0h Op_y=%0h DUT_OUT=%h Expected=%0h Overflow=%0h Underflow=%0h", item.r_mode,item.fp_X,item.fp_Y,item.fp_Z,fp_Z_expected,item.ovrf,item.udrf), UVM_LOW)
 
