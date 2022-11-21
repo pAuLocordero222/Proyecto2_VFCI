@@ -55,3 +55,29 @@ class test1 extends test;
     endtask
 
 endclass
+
+class test2 extends test;
+    `uvm_component_utils(test2);
+    function new(string name="test2", uvm_component parent=null);
+        super.new(name, parent);
+    endfunction
+
+    seq_caso_esquina seq;
+
+    virtual function void build_phase(uvm_phase phase);
+        super.build_phase(phase);
+
+        seq = seq_caso_esquina::type_id::create("seq");
+        seq.randomize();
+
+    endfunction
+
+    virtual task run_phase(uvm_phase phase);
+        `uvm_info("test2", "Starting test execution", UVM_HIGH)
+        phase.raise_objection(this);
+        seq.start(e0.a0.s0);
+        #15;
+        phase.drop_objection(this);
+    endtask
+
+endclass
