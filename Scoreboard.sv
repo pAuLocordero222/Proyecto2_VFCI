@@ -158,19 +158,19 @@ class scoreboard extends uvm_scoreboard;
   //fp_Z_expected= nan ? 32'h7fc00000 : (inf ? {sign_Z, 8'hff, 23'b0} : (zer ? {sign_Z, 8'h00, 23'b0} : {sign_Z, exp_Z_final, frac_Z_final}));// se evalua de cual caso se trata, nan, zero, infinito o un numero valido
   
   case(zin)
-    000: fp_Z_expected = {sign_Z, exp_Z_final, frac_Z_final};
+    3'b000: fp_Z_expected = {sign_Z, exp_Z_final, frac_Z_final};
 
-    001: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000}; //NaN
+    3'b001: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000}; //NaN
 
-    010: fp_Z_expected = {sign_Z, 31'b1111111100000000000000000000000}; //Inf
+    3'b010: fp_Z_expected = {sign_Z, 31'b1111111100000000000000000000000}; //Inf
 
-    011: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
+    3'b011: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
 
-    100: fp_Z_expected = {sign_Z, 31'b0000000000000000000000000000000}; //Zer
+    3'b100: fp_Z_expected = {sign_Z, 31'b0000000000000000000000000000000}; //Zer
 
-    101: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
+    3'b101: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
     
-    111: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
+    3'b111: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
 
     
   endcase
