@@ -30,7 +30,7 @@ module tb;
 		clk <= 0;
         uvm_config_db#(virtual dut_if)::set(null,"uvm_test_top","dut_vif",_if);
 
-		run_test("test2");
+		run_test("test1");
 	end
 
 endmodule
