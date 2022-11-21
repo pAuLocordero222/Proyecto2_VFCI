@@ -4,8 +4,15 @@ class Item extends uvm_sequence_item;
     rand bit [31:0] fp_X;
     rand bit [31:0] fp_Y;
     bit [31:0] fp_Z;
+    bit [47:0] mul;
     bit ovrf;
     bit udrf;
+
+
+    mul = {1'b1,fp_X }* {1'b1,fp_Y};
+
+
+
 
     virtual function string convert2str();
         return $sformatf("r_mode=%0h, fp_X=%0h, fp_Y=%0h, fp_Z=%0h, ovrf=%0h, udrf=%0h", r_mode, fp_X, fp_Y, fp_Z, ovrf, udrf);
@@ -28,11 +35,12 @@ class Item extends uvm_sequence_item;
     constraint c_r_mode {r_mode<=3'b100;}
 
     constraint c_ovrf {
-        ((fp_X[30:23]+fp_Y[30:23]-127)==8'hFF)|( (&fp_X[30:23] & ~|fp_X[22:0]) & |fp_Y[30:23] )|( (&fp_Y[30:23] & ~|fp_X[22:0]) & |fp_X[30:23] );
+        //((fp_X[30:23]+fp_Y[30:23]-127)==8'hFF)|( (&fp_X[30:23] & ~|fp_X[22:0]) & |fp_Y[30:23] )|( (&fp_Y[30:23] & ~|fp_X[22:0]) & |fp_X[30:23] );
+        (fp_X[30:23]+fp_Y[30:23]-(127-mul[47]) >= 255)
     }
 
     constraint c_udrf {
-    (fp_X[30:23] + fp_Y[30:23] - 126 <= 0); 
+    (fp_X[30:23] + fp_Y[30:23] - (127-mul[47]) <= 0); 
     }
 
     constraint c_nan {
