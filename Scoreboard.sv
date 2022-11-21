@@ -172,6 +172,8 @@ class scoreboard extends uvm_scoreboard;
     
     3'b111: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000};
 
+    default: fp_Z_expected = {sign_Z, 31'b1111111110000000000000000000000}; 
+
     
   endcase
   
