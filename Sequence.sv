@@ -15,7 +15,7 @@ class rand_sequence extends uvm_sequence;
             Item item = Item::type_id::create("m_item");
 
             //Constraint modes
-            item.c_rand_data.constraint_mode(1);
+            item.c_rand_data.constraint_mode(0);
             item.c_r_mode.constraint_mode(1);
             item.c_ovrf.constraint_mode(0);
             item.c_udrf.constraint_mode(0);
