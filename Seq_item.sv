@@ -32,7 +32,7 @@ class Item extends uvm_sequence_item;
     }
 
     constraint c_udrf {
-    (fp_X[30:23] + fp_Y[30:23] - 127 <= 0)|(~|fp_X[30:23])|(~|fp_Y[30:23]); 
+    (fp_X[30:23] + fp_Y[30:23] - 126 <= 0); 
     }
 
     constraint c_nan {
