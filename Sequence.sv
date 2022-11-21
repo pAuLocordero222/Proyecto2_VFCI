@@ -7,7 +7,7 @@ class rand_sequence extends uvm_sequence;
 
     rand int num;
 
-    constraint c_num{soft num inside {[10:20]};}
+    constraint c_num{soft num inside {[50:80]};}
 
     virtual task body();
         `uvm_info("Sequence","Start of random sequence", UVM_HIGH);
