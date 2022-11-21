@@ -161,7 +161,7 @@ $display("----------------------------------------------------------------------
 
 $fwrite(fcsv, "%0h, %0h, %0h, %0b, %0b, %0h, %0b, %0b \n", item.fp_X, item.fp_Y, item.fp_Z, item.udrf, item.ovrf, fp_Z_expected, udrf, ovrf);
 
-        if(item.fp_Z !=fp_Z_expected ) begin
+        if(item.fp_Z !=fp_Z_expected | item.udrf != udrf | item.ovrf != ovrf) begin
             `uvm_error("SCBD",$sformatf("TEST FAILED!!!! DUT_OUT=%0h Expected=%0h", item.fp_Z,fp_Z_expected))
         end else begin
             `uvm_info("SCBD",$sformatf("TEST PASS! DUT_OUT=%0h Expected=%0h",item.fp_Z,fp_Z_expected), UVM_HIGH)
