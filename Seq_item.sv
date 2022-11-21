@@ -4,12 +4,10 @@ class Item extends uvm_sequence_item;
     rand bit [31:0] fp_X;
     rand bit [31:0] fp_Y;
     bit [31:0] fp_Z;
-    bit [47:0] mul;
     bit ovrf;
     bit udrf;
 
 
-    mul = {1'b1,fp_X }* {1'b1,fp_Y};
 
 
 
@@ -36,11 +34,11 @@ class Item extends uvm_sequence_item;
 
     constraint c_ovrf {
         //((fp_X[30:23]+fp_Y[30:23]-127)==8'hFF)|( (&fp_X[30:23] & ~|fp_X[22:0]) & |fp_Y[30:23] )|( (&fp_Y[30:23] & ~|fp_X[22:0]) & |fp_X[30:23] );
-        (fp_X[30:23]+fp_Y[30:23]-(127-mul[47]) >= 255)
+        (fp_X[30:23]+fp_Y[30:23] >= 382);
     }
 
     constraint c_udrf {
-    (fp_X[30:23] + fp_Y[30:23] - (127-mul[47]) <= 0); 
+    (fp_X[30:23] + fp_Y[30:23] - 126 <= 0); 
     }
 
     constraint c_nan {

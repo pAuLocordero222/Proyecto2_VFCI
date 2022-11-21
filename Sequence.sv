@@ -19,7 +19,6 @@ class rand_sequence extends uvm_sequence;
             item.c_r_mode.constraint_mode(1);
             item.c_ovrf.constraint_mode(0);
             item.c_udrf.constraint_mode(0);
-            item.c_ovrf.constraint_mode(0);
             item.c_nan.constraint_mode(0);
             start_item(item);
             item.randomize();
@@ -51,7 +50,6 @@ class ovrf_seq extends uvm_sequence;
             item.c_r_mode.constraint_mode(1);
             item.c_ovrf.constraint_mode(1);
             item.c_udrf.constraint_mode(0);
-            item.c_ovrf.constraint_mode(0);
             item.c_nan.constraint_mode(0);
      
             start_item(item);
@@ -81,7 +79,6 @@ class udrf_seq extends uvm_sequence;
             item.c_r_mode.constraint_mode(1);
             item.c_ovrf.constraint_mode(0);
             item.c_udrf.constraint_mode(1);
-            item.c_ovrf.constraint_mode(0);
             item.c_nan.constraint_mode(0);
      
             start_item(item);
@@ -112,7 +109,6 @@ class nan_seq extends uvm_sequence;
             item.c_r_mode.constraint_mode(1);
             item.c_ovrf.constraint_mode(0);
             item.c_udrf.constraint_mode(0);
-            item.c_ovrf.constraint_mode(0);
             item.c_nan.constraint_mode(1);
      
             start_item(item);
