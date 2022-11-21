@@ -45,7 +45,7 @@ class Item extends uvm_sequence_item;
     }
 
     constraint c_alt {
-        (fp_X = 32'hffffffff & fp_Y = 32'b0) | (fp_X = 32'b0 & fp_Y = 32'hffffffff) | (fp_X = 32'hffffffff & fp_Y = 32'hffffffff) | (fp_X = fp_X = 32'b0 & fp_Y = 3fp_X = 32'b0);
+        (fp_X == 32'hffffffff & fp_Y == 32'b0) | (fp_X == 32'b0 & fp_Y == 32'hffffffff) | (fp_X == 32'hffffffff & fp_Y == 32'hffffffff) | (fp_X == 32'b0 & fp_Y == 32'b0);
     }
 
 endclass
