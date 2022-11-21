@@ -186,6 +186,30 @@ class seq_caso_10 extends uvm_sequence;//secuencia con una serie de valores rand
 
 endclass
 
+class seq_caso_all extends uvm_sequence;//secuencia con una serie de valores randomizados
+
+    `uvm_object_utils(seq_caso_all);
+
+    function new(string name="seq_caso_all");
+        super.new(name);
+    endfunction
+
+    rand_sequence rndm_seq;
+    ones_zeros_seq oz_seq;
+    ovrf_seq of_seq;
+    udrf_seq uf_seq;
+    nan_seq nn_seq;
+
+    task body();
+        `uvm_do(rndm_seq);
+        `uvm_do(oz_seq);
+        `uvm_do(of_seq);
+        `uvm_do(uf_seq);
+        `uvm_do(nn_seq);
+    endtask 
+
+endclass
+
 class seq_caso_esquina extends uvm_sequence;
 
     `uvm_object_utils(seq_caso_esquina);
