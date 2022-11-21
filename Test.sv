@@ -119,7 +119,7 @@ class test4 extends test;
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
 
-        seq = seq_caso_10::type_id::create("seq");
+        seq = seq_caso_all::type_id::create("seq");
         seq.randomize();
 
     endfunction
