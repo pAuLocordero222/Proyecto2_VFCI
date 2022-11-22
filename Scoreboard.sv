@@ -5,6 +5,8 @@ class scoreboard extends uvm_scoreboard;
         super.new(name, parent);
     endfunction
 
+
+    //Definicion de las variables que se van a usar
     bit [22:0] frac_X, frac_Y;
     bit [47:0] frac_Z_full;
     bit [47:0] frac_Z_shift;
@@ -32,7 +34,7 @@ class scoreboard extends uvm_scoreboard;
   
 
 
-    uvm_analysis_imp #(Item, scoreboard) m_analysis_imp;
+    uvm_analysis_imp #(Item, scoreboard) m_analysis_imp; //Puerto de analisis
 
     virtual function void build_phase(uvm_phase phase);
         
@@ -40,7 +42,8 @@ class scoreboard extends uvm_scoreboard;
       
         m_analysis_imp = new("m_analysis_imp",this);
 
-        fcsv = $fopen("./resultados.csv", "w");
+        fcsv = $fopen("./resultados.csv", "w"); //Se abre el archivo resultados.csv
+        //Se escribe la primera linea del .csv
         $fwrite(fcsv, "X, Y, Z, Sign Z, Underflow, Overflow, Expected Z, Expected Sign Z, Expected Underflow, Expected Overflow, TEST \n");
 
     endfunction
@@ -177,12 +180,12 @@ class scoreboard extends uvm_scoreboard;
     
   endcase
   
-  //se obtiene el valor esperado final en base a esto
+  //Se imprimen los resultados del scoreboard
 $display("-----------------------------------------------------------------------------");
 `uvm_info("SCBD", $sformatf("Mode=%0h Op_x=%0h Op_y=%0h DUT_OUT=%h Expected=%0h Overflow=%0h Underflow=%0h", item.r_mode,item.fp_X,item.fp_Y,item.fp_Z,fp_Z_expected,item.ovrf,item.udrf), UVM_LOW)
 
 
-
+//Se decide si el test es exitoso o no y se imprime en la terminal el texto correspondiente además de añadir los resultados al .csv
         if(item.fp_Z !=fp_Z_expected | item.udrf != udrf | item.ovrf != ovrf) begin
             $fwrite(fcsv, "%0h, %0h, %0h, %0b, %0b, %0b, %0h, %0b, %0b, %0b, %s\n", item.fp_X, item.fp_Y, item.fp_Z, item.fp_Z[31], item.udrf, item.ovrf, fp_Z_expected, sign_Z, udrf, ovrf, "ERROR");
             `uvm_error("SCBD",$sformatf("TEST FAILED!!!! DUT_OUT=%0h Expected=%0h", item.fp_Z,fp_Z_expected))
